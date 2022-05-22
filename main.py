@@ -1,6 +1,25 @@
+import sys
+sys.path.append("src")
+
+import os
+
+from Scene import Scene
+from Model import Model
+
+WIDTH, HEIGHT = 1600, 900
+
 
 def main() -> None:
-    pass
+    scene: Scene = Scene(
+        "test",
+        width=WIDTH,
+        height=HEIGHT
+    )
+
+    teapot_model = Model(path=os.path.join("models", "teapot.obj"))
+    scene.add_model(teapot_model)
+
+    # scene.render()
 
 
 if __name__ == "__main__":
