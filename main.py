@@ -16,10 +16,14 @@ def main() -> None:
         height=HEIGHT
     )
 
-    teapot_model = Model(path=os.path.join("models", "teapot.obj"))
+    teapot_model = Model(
+        scene=scene,
+        path=os.path.join("models", "teapot.obj")
+    )
+    teapot_model.translate([-20, 10, 100])
     scene.add_model(teapot_model)
 
-    # scene.render()
+    scene.render()
 
 
 if __name__ == "__main__":
