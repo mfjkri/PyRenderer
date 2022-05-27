@@ -2,9 +2,15 @@ import math
 
 import pygame
 import numpy
+import numba
 
 from Model import Model
 from Camera import Camera
+
+
+@numba.njit(fastmath=True)
+def check_within_bounds(face: numpy.ndarray, width: int, height: int) -> bool:
+    return not numpy.any((face == width) | (face == height))
 
 
 class Scene:
@@ -34,7 +40,7 @@ class Scene:
         return len(self.models) - 1
 
     def is_face_within_screen(self, face: numpy.ndarray) -> bool:
-        return not numpy.any((face == self.VWIDTH) | (face == self.VHEIGHT))
+        return check_within_bounds(face, self.VWIDTH, self.VHEIGHT)
 
     def render(self):
         while True:
@@ -44,7 +50,7 @@ class Scene:
                 model.draw()
 
             [exit() for i in pygame.event.get() if i.type == pygame.QUIT]
-
+            pygame.display.set_caption(str(self.clock.get_fps()))
             pygame.display.flip()
             self.clock.tick(self.framerate)
 
