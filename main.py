@@ -1,3 +1,4 @@
+from gettext import textdomain
 import sys
 sys.path.append("src")
 
@@ -20,7 +21,6 @@ def main() -> None:
         scene=scene,
         path=os.path.join("models", "teapot.obj")
     )
-    teapot_model.translate([-20, 10, 100])
     scene.add_model(teapot_model)
 
     scene.render()

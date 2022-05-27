@@ -20,7 +20,7 @@ class Scene:
         self.camera = Camera(
             scene_width=width,
             scene_height=height,
-            position=[-5, 6, -55]
+            position=[35, 0, -100]
         )
         self.projection: ProjectionMatrices = ProjectionMatrices(self)
 
