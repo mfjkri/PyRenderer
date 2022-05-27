@@ -38,6 +38,10 @@ class Model():
 
         return vertices, faces
 
+    def draw(self):
+        # project_to_screen
+        pass
+
     def translate(self, pos):
         self.vertices = self.vertices @ Transform.translate(pos)
 
