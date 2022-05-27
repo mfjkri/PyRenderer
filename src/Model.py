@@ -1,6 +1,7 @@
 from typing import Tuple
 
 import numpy
+import pygame
 import Transform
 
 
@@ -39,8 +40,25 @@ class Model():
         return vertices, faces
 
     def draw(self):
-        # project_to_screen
-        pass
+        self.project_to_screen()
+
+    def project_to_screen(self):
+        vertices = self.vertices @ self.scene.camera.camera_matrix()
+        vertices = vertices @ self.scene.projection.projection_matrix
+        vertices /= vertices[:, -1].reshape(-1, 1)
+        vertices[(vertices > 2) | (vertices < -2)] = 0
+        vertices = vertices @ self.scene.projection.to_screen_matrix
+        vertices = vertices[:, :2]
+
+        for face in self.faces:
+            polygon = vertices[face]
+            if self.scene.is_face_within_screen(polygon):
+                pygame.draw.polygon(
+                    self.scene.window,
+                    pygame.Color('blue'),
+                    polygon,
+                    1
+                )
 
     def translate(self, pos):
         self.vertices = self.vertices @ Transform.translate(pos)

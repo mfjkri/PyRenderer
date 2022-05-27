@@ -33,6 +33,9 @@ class Scene:
         self.models.append(model)
         return len(self.models) - 1
 
+    def is_face_within_screen(self, face: numpy.ndarray) -> bool:
+        return not numpy.any((face == self.VWIDTH) | (face == self.VHEIGHT))
+
     def render(self):
         while True:
             self.window.fill(pygame.Color('darkslategray'))
