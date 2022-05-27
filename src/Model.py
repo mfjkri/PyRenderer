@@ -1,3 +1,4 @@
+from numbers import Number
 from typing import Tuple
 
 import numpy
@@ -39,10 +40,10 @@ class Model():
 
         return vertices, faces
 
-    def draw(self):
+    def draw(self) -> None:
         self.project_to_screen()
 
-    def project_to_screen(self):
+    def project_to_screen(self) -> None:
         vertices = self.vertices @ self.scene.camera.camera_matrix()
         vertices = vertices @ self.scene.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
@@ -60,17 +61,17 @@ class Model():
                     1
                 )
 
-    def translate(self, pos):
+    def translate(self, pos: numpy.ndarray) -> None:
         self.vertices = self.vertices @ Transform.translate(pos)
 
-    def scale(self, scale_to):
+    def scale(self, scale_to: Number) -> None:
         self.vertices = self.vertices @ Transform.scale(scale_to)
 
-    def rotate_x(self, angle):
+    def rotate_x(self, angle: Number) -> None:
         self.vertices = self.vertices @ Transform.rotate_x(angle)
 
-    def rotate_y(self, angle):
+    def rotate_y(self, angle: Number) -> None:
         self.vertices = self.vertices @ Transform.rotate_y(angle)
 
-    def rotate_z(self, angle):
+    def rotate_z(self, angle: Number) -> None:
         self.vertices = self.vertices @ Transform.rotate_z(angle)
