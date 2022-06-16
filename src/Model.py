@@ -42,6 +42,8 @@ class Model():
 
     def draw(self) -> None:
         self.project_to_screen()
+        self.rotate_y(0.01)
+        self.scale(1.004)
 
     def project_to_screen(self) -> None:
         vertices = self.vertices @ self.scene.camera.camera_matrix()
